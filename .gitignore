@@ -1,0 +1,4 @@
+env/
+poetry.lock
+.idea/
+employee_manager/__pycache__/
