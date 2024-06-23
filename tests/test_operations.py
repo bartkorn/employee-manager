@@ -62,12 +62,12 @@ class TestOperations(unittest.TestCase):
 
     def test_create_employee(self):
         from operations import create_employee
-        simulated_input = io.StringIO("Bartlomiej Kornowski 36 Manager\n")
-        sys.stdin = simulated_input
-
-        employee = create_employee()
-
-        sys.stdin = sys.__stdin__
+        employee = create_employee(
+            name="Bartlomiej",
+            surname="Kornowski",
+            age=35,
+            profession="Manger"
+        )
         assert employee.name == 'Bartlomiej'
 
     @mock_aws

@@ -1,37 +1,28 @@
+import typer
 from operations import load_employees, create_employee, save_employee, list_employees, update_employee
 
 
-def main():
+app = typer.Typer()
+
+
+@app.command()
+def create(name: str, surname: str, age: int, profession: str):
+    employee = create_employee(name=name, surname=surname, age=age, profession=profession)
+    response = save_employee(employee)
+    print(response)
+
+
+@app.command()
+def list():
     employees = load_employees()
+    list_employees(employees)
 
-    while True:
 
-        option = int(input("Select option: \n\t1/ Add employee \n\t2/ List employees \n\t3/ Update employee \n\t4/ Exit \nSelection: "))
-
-        match option:
-            case 1:
-                employee = create_employee()
-                response = save_employee(employee)
-                print(response)
-                continue
-            case 2:
-                employees = load_employees()
-                list_employees(employees)
-                continue
-            case 3:
-                surname = input("Enter employee surname: ")
-                name = input("Enter employee name: ")
-                attribute_name = input("Enter property to update [age / profession]: ")
-                attribute_value = input("Enter value of property to update: ")
-                response = update_employee(surname, name, attribute_name, attribute_value)
-                print(response)
-                continue
-            case 4:
-                break
-            case other:
-                print("Invalid option")
-                continue
+@app.command()
+def update(name: str, surname: str, attribute_name: str, attribute_value: str ):
+    response = update_employee(surname=surname, name=name, attribute_name=attribute_name, attribute_value=attribute_value)
+    print(response)
 
 
 if __name__ == "__main__":
-    main()
+    app()

@@ -15,9 +15,7 @@ def list_employees(employees):
         employee.present()
 
 
-def create_employee():
-    personal_details = input("Provide name, surname, age and profession (separated by space): ")
-    name, surname, age, profession = [detail for detail in personal_details.split(" ")]
+def create_employee(name, surname, age, profession):
     return Employee(name=name, surname=surname, age=age, profession=profession)
 
 
