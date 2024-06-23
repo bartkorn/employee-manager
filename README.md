@@ -42,9 +42,22 @@ aws configure
 
 The application CLI interface allows to perform action on employee data entries. It allows to add new employee, edit existing employee and list all employees.
 
-To start the CLI application please run:
+### Examples
+#### Create employee
 ````
-poetry run python employee_manager/main.py
+poetry run python employee_manager/cli.py create "John" "Smith" 35 "construction worker" 
+````
+#### List employees
+````
+poetry run python employee_manager/cli.py list 
+````
+#### Update employee
+````
+poetry run python employee_manager/cli.py update "John" "Smith" "profession" "electrician" 
+````
+#### See help for all available commands 
+````
+poetry run python employee_manager/cli.py --help 
 ````
 
 ## Running Tests
