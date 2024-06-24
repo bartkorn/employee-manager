@@ -1,6 +1,5 @@
 ![Original Logo](https://github.com/bartkorn/employee-manager/assets/9967734/a6a69dc1-37bb-42cb-bcec-487bd5ad6fbf)
-
-
+[![Build and Test](https://github.com/bartkorn/employee-manager/actions/workflows/python-app.yml/badge.svg)](https://github.com/bartkorn/employee-manager/actions/workflows/python-app.yml)
 ## Overview
 
 The Employee Management CLI Application is a simple command-line interface tool designed to manage employees. It provides basic CRUD (Create, Read, Update, Delete) operations to add, edit, and list employees stored in an AWS DynamoDB database. This application is built using Python and leverages Poetry for dependency management and pytest for unit testing.
