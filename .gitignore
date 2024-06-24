@@ -2,4 +2,6 @@ env/
 poetry.lock
 .idea/
 employee_manager/__pycache__/
+employee_manager/model/__pycache__/
+employee_manager/client/__pycache__/
 tests/__pycache__/

@@ -1,8 +1,9 @@
 from model.employee import Employee
 from client.database import get_all_items, save_item, update_item
+from typing import List
 
 
-def load_employees():
+def load_employees() -> List[Employee]:
     return [Employee(
         item['name'],
         item['surname'],
@@ -10,16 +11,16 @@ def load_employees():
         item['profession']) for item in get_all_items('Employees')]
 
 
-def list_employees(employees):
+def list_employees(employees: List[Employee]) -> None:
     for employee in employees:
         employee.present()
 
 
-def create_employee(name, surname, age, profession):
+def create_employee(name: str, surname: str, age: int, profession: str) -> Employee:
     return Employee(name=name, surname=surname, age=age, profession=profession)
 
 
-def save_employee(employee):
+def save_employee(employee: Employee) -> str:
     response = save_item('Employees', employee.to_item())
     if response['ResponseMetadata']['HTTPStatusCode'] == 200:
         return 'Employee created successfully'
@@ -27,7 +28,7 @@ def save_employee(employee):
         return 'Error during adding employee'
 
 
-def update_employee(surname, name, attribute_name, attribute_value):
+def update_employee(surname: str, name: str, attribute_name: str, attribute_value: any) -> str:
     response = update_item('Employees', 'surname', surname, 'name', name, attribute_name, attribute_value)
     if response['ResponseMetadata']['HTTPStatusCode'] == 200:
         return 'Employee updated successfully'
