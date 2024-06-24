@@ -29,5 +29,8 @@ jobs:
     - name: Install dependencies
       run: poetry install
 
+    - name: Set default AWS region
+      run: export AWS_DEFAULT_REGION=us-west-2
+
     - name: Run tests
       run: poetry run pytest
