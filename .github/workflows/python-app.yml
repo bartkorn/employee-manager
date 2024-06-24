@@ -29,8 +29,8 @@ jobs:
     - name: Install dependencies
       run: poetry install
 
-    - name: Set default AWS region
-      run: export AWS_DEFAULT_REGION=us-west-2
+    - name: Set AWS Default Region
+      run: echo "AWS_DEFAULT_REGION=us-east-1" >> $GITHUB_ENV
 
     - name: Run tests
       run: poetry run pytest
