@@ -1,13 +1,11 @@
 from model.person import Person
 from typing import Dict
 
+
 class Employee(Person):
-    
-    def __init__(self, name: str, surname: str, age: int, profession: str):
-        super().__init__(name, surname, age)
-        self.profession = profession
-        self.hired = False
-        
+    profession: str
+    hired: bool = False
+
     def get_hired(self) -> None:
         self.hired = True
         

@@ -4,11 +4,7 @@ from typing import List
 
 
 def load_employees() -> List[Employee]:
-    return [Employee(
-        item['name'],
-        item['surname'],
-        int(item['age']),
-        item['profession']) for item in get_all_items('Employees')]
+    return [Employee(**item) for item in get_all_items('Employees')]
 
 
 def list_employees(employees: List[Employee]) -> None:
