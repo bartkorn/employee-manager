@@ -1,5 +1,5 @@
 import typer
-from operations import load_employees, create_employee, save_employee, list_employees, update_employee
+from operations import load_employees, create_employee, save_employee, list_employees, update_employee, delete_employee
 
 
 app = typer.Typer(help="The Employee Management CLI Application is a simple command-line interface tool to manage "
@@ -22,6 +22,12 @@ def list() -> None:
 @app.command(help="Update existing employee")
 def update(name: str, surname: str, attribute_name: str, attribute_value: str) -> None:
     response = update_employee(surname=surname, name=name, attribute_name=attribute_name, attribute_value=attribute_value)
+    print(response)
+
+
+@app.command(help="Delete existing employee")
+def delete(name: str, surname: str) -> None:
+    response = delete_employee(surname=surname, name=name)
     print(response)
 
 

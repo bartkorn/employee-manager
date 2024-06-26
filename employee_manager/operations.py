@@ -1,5 +1,5 @@
 from model.employee import Employee
-from client.database import get_all_items, save_item, update_item
+from client.database import get_all_items, save_item, update_item, delete_item
 from typing import List
 
 
@@ -30,4 +30,12 @@ def update_employee(surname: str, name: str, attribute_name: str, attribute_valu
         return 'Employee updated successfully'
     else:
         return 'Error during employee update'
+
+
+def delete_employee(surname: str, name: str) -> str:
+    response = delete_item('Employees', 'surname', surname, 'name', name)
+    if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+        return 'Employee deleted successfully'
+    else:
+        return 'Error during employee delete'
 

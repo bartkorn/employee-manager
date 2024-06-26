@@ -51,6 +51,16 @@ def update_item(table_name: str, primary_key_name: str, primary_key_value: any, 
     )
 
 
+def delete_item(table_name: str, primary_key_name: str, primary_key_value: any, sort_key_name: str, sort_key_value: any) -> any:
+    """ Delete item with a given primary key from DynamoDB table """
+
+    table = connect_table(table_name)
+    return table.delete_item(Key={
+        primary_key_name: primary_key_value,
+        sort_key_name: sort_key_value
+    })
+
+
 if __name__ == '__main__':
     
     print(get_all_items('Employees'))

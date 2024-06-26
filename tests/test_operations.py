@@ -105,6 +105,13 @@ class TestOperations(unittest.TestCase):
         )
         assert response == "Employee updated successfully"
 
+    @mock_aws
+    def test_delete_employee(self):
+        from operations import delete_employee
+
+        response = delete_employee(surname='Kornowski', name='Bartlomiej')
+        assert response == "Employee deleted successfully"
+
     def tearDown(self):
         self.mock_aws.stop()
 

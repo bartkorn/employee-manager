@@ -48,7 +48,7 @@ The application CLI interface allows to perform action on employee data entries.
 ### Examples
 #### Create employee
 ````
-poetry run python employee_manager/cli.py create "John" "Smith" 35 "construction worker" 
+poetry run python employee_manager/cli.py create John Smith 35 construction worker 
 ````
 #### List employees
 ````
@@ -56,7 +56,11 @@ poetry run python employee_manager/cli.py list
 ````
 #### Update employee
 ````
-poetry run python employee_manager/cli.py update "John" "Smith" "profession" "electrician" 
+poetry run python employee_manager/cli.py update John Smith profession electrician 
+````
+#### Delete employee
+````
+poetry run python employee_manager/cli.py delete John Smith
 ````
 #### See help for all available commands 
 ````
