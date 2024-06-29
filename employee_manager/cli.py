@@ -16,7 +16,7 @@ def create(name: str, surname: str, age: int, profession: str) -> None:
 
 
 @app.command(help="List all existing employees")
-def list(sort: bool = typer.Option(False),  sort_key: str = typer.Option(None)) -> None:
+def list(sort: bool = typer.Option(False),  sort_key: str = typer.Option("name")) -> None:
     if sort_key:
         if not validate_property(Employee, sort_key):
             print("Incorrect sort key")
