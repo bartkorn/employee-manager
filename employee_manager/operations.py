@@ -3,8 +3,12 @@ from client.database import get_all_items, save_item, update_item, delete_item
 from typing import List
 
 
-def load_employees() -> List[Employee]:
-    return [Employee(**item) for item in get_all_items('Employees')]
+def load_employees(sort: bool = False, sort_key: str = "") -> List[Employee]:
+    employees = [Employee(**item) for item in get_all_items('Employees')]
+    if sort:
+        return sorted(employees, key=lambda employee: employee.to_item()[sort_key])
+    return employees
+
 
 
 def list_employees(employees: List[Employee]) -> None:
