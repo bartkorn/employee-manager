@@ -1,7 +1,5 @@
 import boto3
 import unittest
-import io
-import sys
 from moto import mock_aws
 from tests.utils.test_utils import stdout_capture
 
@@ -47,6 +45,7 @@ class TestOperations(unittest.TestCase):
             'profession': 'Manager'
         })
 
+    @mock_aws
     def test_list_employees(self):
         from operations import list_employees
         from model.employee import Employee
@@ -60,6 +59,7 @@ class TestOperations(unittest.TestCase):
         output = stdout_capture(list_employees, employees)
         assert output == f"Employee Bartlomiej Kornowski is working as Manager and is 36 years old."
 
+    @mock_aws
     def test_create_employee(self):
         from operations import create_employee
         employee = create_employee(

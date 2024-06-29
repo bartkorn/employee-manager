@@ -27,3 +27,4 @@ class Employee(Person):
             'profession': self.profession,
             'hired': self.hired
         }
+
