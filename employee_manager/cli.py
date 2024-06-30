@@ -2,6 +2,7 @@ import typer
 from operations import load_employees, create_employee, save_employee, list_employees, update_employee, delete_employee
 from validators.validators import validate_property, validate_property_and_value
 from presentation.printers import print_table
+from processors.processors import convert_to_type
 from model.employee import Employee
 
 
@@ -23,6 +24,16 @@ def list(sort: bool = typer.Option(False),  sort_key: str = typer.Option("name")
             return None
     employees = load_employees(sort=bool(sort), sort_key=sort_key)
     print_table(Employee, employees)
+
+
+@app.command(help="List employees and match by property")
+def match(match_property: str, match_value: str):
+    if not validate_property_and_value(Employee, match_property, match_value):
+        print("Incorrect property or value to match")
+        return None
+    employees = load_employees()
+    value = convert_to_type(Employee, match_property, match_value)
+    print_table(Employee, employees, True, match_property, value)
 
 
 @app.command(help="Update existing employee")

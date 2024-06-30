@@ -10,7 +10,6 @@ def load_employees(sort: bool = False, sort_key: str = "") -> List[Employee]:
     return employees
 
 
-
 def list_employees(employees: List[Employee]) -> None:
     for employee in employees:
         employee.present()
