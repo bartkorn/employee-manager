@@ -1,6 +1,7 @@
 from model.employee import Employee
 from client.database import get_all_items, save_item, update_item, delete_item
 from typing import List
+from processors.io import read_csv, read_header
 
 
 def load_employees(sort: bool = False, sort_key: str = "") -> List[Employee]:
@@ -42,3 +43,14 @@ def delete_employee(surname: str, name: str) -> str:
     else:
         return 'Error during employee delete'
 
+
+def load_from_file(path: str) -> str:
+    loaded_cnt: int = 0
+    header: list | bool = read_header(path, Employee)
+    if not header:
+        print("Header is broken")
+    items = read_csv(path, header, Employee)
+    if not items:
+        print("CSV failed to load")
+    loaded_cnt = len(list(map(lambda item: save_employee(item), items)))
+    return f"{loaded_cnt} employees successfully loaded."

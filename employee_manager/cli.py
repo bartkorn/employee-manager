@@ -1,13 +1,15 @@
 import typer
-from operations import load_employees, create_employee, save_employee, list_employees, update_employee, delete_employee
+from operations import load_employees, create_employee, save_employee, list_employees, update_employee, delete_employee, load_from_file
 from validators.validators import validate_property, validate_property_and_value
 from presentation.printers import print_table
 from processors.processors import convert_to_type
 from model.employee import Employee
+import os
 
 
 app = typer.Typer(help="The Employee Management CLI Application is a simple command-line interface tool to manage "
                        "employees.")
+
 
 @app.command(help="Create new employee")
 def create(name: str, surname: str, age: int, profession: str) -> None:
@@ -50,6 +52,13 @@ def update(name: str, surname: str, attribute_name: str, attribute_value: str) -
 def delete(name: str, surname: str) -> None:
     response = delete_employee(surname=surname, name=name)
     print(response)
+
+
+@app.command(help="Import employees from file")
+def load(filename: str) -> None:
+    path = os.path.join(os.getcwd(), filename)
+    responses = load_from_file(path)
+    print(responses)
 
 
 if __name__ == "__main__":

@@ -7,3 +7,4 @@ employee_manager/client/__pycache__/
 tests/__pycache__/
 .coverage
 htmlcov/
+data.csv
