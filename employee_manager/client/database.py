@@ -24,6 +24,16 @@ def get_all_items(table_name: str) -> Any:
     return data
 
 
+def get_item(table_name: str, primary_key_name: str, primary_key_value: any, sort_key_name: str, sort_key_value: any) -> any:
+    """ Get item with a given primary key in DynamoDB table """
+
+    table = connect_table(table_name)
+    return table.get_item(Key={
+        primary_key_name: primary_key_value,
+        sort_key_name: sort_key_value
+    })
+
+
 def save_item(table_name: str, item: Dict) -> Any:
     """ Save item to DynamoDB table """
     

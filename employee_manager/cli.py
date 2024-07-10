@@ -1,5 +1,5 @@
 import typer
-from operations import load_employees, create_employee, save_employee, list_employees, update_employee, delete_employee, load_from_file
+from operations import load_employees, create_employee, save_employee, list_employees, update_employee, delete_employee, load_from_file, get_employee
 from validators.validators import validate_property, validate_property_and_value
 from presentation.printers import print_table
 from processors.processors import convert_to_type
@@ -40,10 +40,13 @@ def match(match_property: str, match_value: str):
 
 @app.command(help="Update existing employee")
 def update(name: str, surname: str, attribute_name: str, attribute_value: str) -> None:
-
     if validate_property_and_value(Employee, attribute_name, attribute_value):
-        response = update_employee(surname=surname, name=name, attribute_name=attribute_name, attribute_value=attribute_value)
-        print(response)
+        if get_employee(surname, name) is not None:
+            response = update_employee(surname=surname, name=name, attribute_name=attribute_name,
+                                       attribute_value=attribute_value)
+            print(response)
+        else:
+            print(f"Employee with given surname '{surname}' and name '{name}' does not exist.")
     else:
         print("Incorrect property name or value.")
 

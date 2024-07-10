@@ -1,5 +1,5 @@
 from model.employee import Employee
-from client.database import get_all_items, save_item, update_item, delete_item
+from client.database import get_all_items, save_item, update_item, delete_item, get_item
 from typing import List
 from processors.io import read_csv, read_header
 
@@ -9,6 +9,13 @@ def load_employees(sort: bool = False, sort_key: str = "") -> List[Employee]:
     if sort:
         return sorted(employees, key=lambda employee: employee.to_item()[sort_key])
     return employees
+
+
+def get_employee(surname: str, name: str) -> Employee | None:
+    response = get_item('Employees', 'surname', surname, 'name', name)
+    if 'Item' in response:
+        return Employee(**response['Item'])
+    return None
 
 
 def list_employees(employees: List[Employee]) -> None:
