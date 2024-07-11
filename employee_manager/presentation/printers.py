@@ -6,13 +6,14 @@ from typing import get_type_hints, Dict
 def print_table(model: any, iterable: any, highlight: bool = False, property_name: str = "", match_value: any = None) -> None:
     console = Console()
     table = Table(show_header=True, header_style="bold blue")
+    table.add_column("#", style="bold")
     for key in get_type_hints(model).keys():
         table.add_column(key.capitalize(), style="bold")
-    for item in iterable:
+    for index, item in enumerate(iterable):
         if highlight:
-            table.add_row(*[highlight_record(item.to_item(), prop, property_name, match_value) for prop in get_type_hints(model)])
+            table.add_row(str(index + 1), *[highlight_record(item.to_item(), prop, property_name, match_value) for prop in get_type_hints(model)])
         else:
-            table.add_row(*[str(item.to_item()[prop]) for prop in get_type_hints(model)])
+            table.add_row(str(index + 1), *[str(item.to_item()[prop]) for prop in get_type_hints(model)])
     console.print(table)
 
 
