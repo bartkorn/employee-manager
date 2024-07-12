@@ -1,5 +1,7 @@
+import boto3.exceptions
+
 from model.employee import Employee
-from client.database import get_all_items, save_item, update_item, delete_item, get_item
+from client.database import get_all_items, save_item, update_item, delete_item, get_item, batch_save
 from typing import List
 from processors.io import read_csv, read_header
 
@@ -59,5 +61,8 @@ def load_from_file(path: str) -> str:
     items = read_csv(path, header, Employee)
     if not items:
         print("CSV failed to load")
-    loaded_cnt = len(list(map(lambda item: save_employee(item), items)))
-    return f"{loaded_cnt} employees successfully loaded."
+    try:
+        batch_save(table_name='Employees', items=items)
+        return f"{len(items)} employees successfully loaded."
+    except boto3.exceptions.Boto3Error:
+        return "Error while loading employees."

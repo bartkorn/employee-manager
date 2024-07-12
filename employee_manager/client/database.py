@@ -1,7 +1,6 @@
 import boto3
 from typing import Any, Dict
 
-
 def connect_table(table_name: str) -> Any:
     """ Create a DynamoDB session and connect to table """
     
@@ -39,6 +38,15 @@ def save_item(table_name: str, item: Dict) -> Any:
     
     table = connect_table(table_name)
     return table.put_item(Item=item)
+
+
+def batch_save(table_name: str, items: list[Dict]) -> Any:
+    """ Save a batch of items to DynamoDB table """
+
+    table = connect_table(table_name)
+    with table.batch_writer() as batch:
+        for item in items:
+            batch.put_item(Item=item)
 
 
 def update_item(table_name: str, primary_key_name: str, primary_key_value: any, sort_key_name: str, sort_key_value: any, attribute_name: str, attribute_value: any) -> Any:

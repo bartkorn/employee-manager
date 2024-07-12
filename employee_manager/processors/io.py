@@ -32,7 +32,7 @@ def read_csv(file_name: str, header: list, cls: any) -> list | bool:
                 if not validate_property_and_value(cls, header[idx], row[idx]):
                     return False
                 row_item[header[idx]] = row[idx]
-            rows.append(cls(**row_item))
+            rows.append(cls(**row_item).to_item())
 
     return rows
 
