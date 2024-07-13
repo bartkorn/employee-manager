@@ -1,5 +1,9 @@
 import boto3
+import concurrent.futures
 from typing import Any, Dict
+
+BATCH_SIZE = 25
+NUM_THREADS = 10
 
 def connect_table(table_name: str) -> Any:
     """ Create a DynamoDB session and connect to table """
@@ -43,10 +47,22 @@ def save_item(table_name: str, item: Dict) -> Any:
 def batch_save(table_name: str, items: list[Dict]) -> Any:
     """ Save a batch of items to DynamoDB table """
 
+    def write_batch(table: any, items: list[Dict]) -> Any:
+        try:
+            with table.batch_writer() as batch:
+                for item in items:
+                    batch.put_item(Item=item)
+            return f"Successfully wrote batch of {len(items)} items."
+        except Exception as e:
+            return f"Failed to write batch: {str(e)}"
+
+    batches = [items[i:i + BATCH_SIZE] for i in range(0, len(items), BATCH_SIZE)]
+
     table = connect_table(table_name)
-    with table.batch_writer() as batch:
-        for item in items:
-            batch.put_item(Item=item)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=NUM_THREADS) as executor:
+        futures = [executor.submit(write_batch, table, batch) for batch in batches]
+        for future in concurrent.futures.as_completed(futures):
+            print(future.result())
 
 
 def update_item(table_name: str, primary_key_name: str, primary_key_value: any, sort_key_name: str, sort_key_value: any, attribute_name: str, attribute_value: any) -> Any:
