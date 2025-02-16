@@ -41,6 +41,13 @@ Ensure you have AWS CLI installed and configured with your AWS credentials. You 
 aws configure
 ````
 
+4. **Deploy AWS infrastructure:**
+
+Application uses AWS DynamoDB table to store employee records
+```bash
+aws cloudformation deploy --template-file employee_manager/iac/dynamodb.yaml --stack-name my-dynamodb-stack
+```
+
 ## Usage
 
 The application CLI interface allows to perform action on employee data entries. It allows to add new employee, edit existing employee and list all employees.
